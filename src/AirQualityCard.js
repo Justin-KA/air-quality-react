@@ -31,4 +31,32 @@ const AirQualityCard = ({data}) => {
     )
 }
 
-export default AirQualityCard
+const ForecastCard = ({data}) => {
+  const {forecast, dominentpol} = data
+  const forecastArray = forecast.daily[dominentpol]
+  const cardColorArray = forecastArray.map(x => (
+      getCardColor(x.avg)
+    ))
+
+  return (
+    <div className='card mb-4'>
+      <div className='card-body'>
+      <h4 className='card-title'>{dominentpol.toUpperCase()} Forecast</h4>
+        <div className='card-group'>
+          {forecastArray.map((x, index) => (
+            
+            <div className={`card mb-4 ${cardColorArray[index]}`}>
+              <div className="card-body">
+                <h6 className='card-subtitle mb-2 text-center'>{x.day.substr(5)}</h6>
+                <p className="card-text text-center">{x.avg}</p>
+
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export { AirQualityCard, ForecastCard }
